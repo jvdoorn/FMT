@@ -3,17 +3,17 @@ import numpy as np
 import tmm
 
 samples = 500  # Amount of samples around the desired wavelength
-wave_length_delta = 5  # Amount around the desired wavelength
+wave_length_delta = 5  # Wavelength range around the target wavelength
 
 polarization = 'p'  # Polarization of incident light
-target_wave_length = 13.5  # Wavelength in vacuum
+target_wave_length = 13.5  # Target wavelength in vacuum
 theta0 = np.deg2rad(0)  # Angle of incidence
 
 n_high = 0.999 + 0.0018j  # Si
 n_low = 0.9227 + 0.0062j  # Mo
 n_vacuum = 1  # Refractive index of vacuum
 
-pairs = 50
+pairs = 50  # Amount of thin film layer pairs
 
 # Create the mirror
 distance_list = [np.inf]
@@ -28,10 +28,12 @@ for i in range(pairs):
 distance_list.append(np.inf)
 n_list.append(n_vacuum)
 
-distance_list = np.real(distance_list)
+distance_list = np.real(distance_list)  # Avoids an error that distances have imaginary component
 
+# The wavelengths we want to analyse
 wave_length_list = np.linspace(target_wave_length - wave_length_delta, target_wave_length + wave_length_delta, samples)
 
+# These arrays will contain the results of our calculations
 reflection_list = []
 transmission_list = []
 absorption_list = []
